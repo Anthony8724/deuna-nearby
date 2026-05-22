@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
-
-import { MerchantDashboard } from "./MerchantDashboard";
+import { DashboardView } from "@/components/dashboard";
+import { fetchDashboardData } from "@/lib/dashboard-api";
 
 export const metadata: Metadata = {
-  title: "Dashboard · DeUna Nearby",
+  title: "Dashboard DeUna Nearby — Impacto",
   description:
-    "Métricas inteligentes para comercios afiliados: conversiones, promociones, zonas calientes y efectividad IA.",
+    "Métricas de impacto, historial de compras y pitch del ecosistema DeUna Nearby.",
 };
 
-export default function DashboardPage() {
-  return <MerchantDashboard />;
+export default async function DashboardPage() {
+  const data = await fetchDashboardData();
+
+  return <DashboardView data={data} />;
 }

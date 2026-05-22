@@ -19,11 +19,11 @@ import type { MerchantProfile } from "../data/merchantAnalytics";
 import { DashboardBadgePill } from "./DashboardBadge";
 
 const NAV = [
-  { href: "/dashboard", label: "Resumen", icon: LayoutDashboard },
+  { href: "/comercio/analytics", label: "Resumen", icon: LayoutDashboard },
   { href: "/smart-notifications", label: "Radar DeUna", icon: Radar },
-  { href: "/dashboard", label: "Promociones", icon: Tag },
-  { href: "/dashboard", label: "Zonas", icon: MapPin },
-  { href: "/dashboard", label: "Analítica", icon: BarChart3 },
+  { href: "/comercio/analytics", label: "Promociones", icon: Tag },
+  { href: "/comercio/analytics", label: "Zonas", icon: MapPin },
+  { href: "/comercio/analytics", label: "Analítica", icon: BarChart3 },
 ] as const;
 
 type DashboardSidebarProps = {
