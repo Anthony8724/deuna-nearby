@@ -21,20 +21,20 @@ export function MobileWalletLayout({
 }: MobileWalletLayoutProps) {
   const isEmbed = variant === "embed";
 
+  const phoneFrameClass = isEmbed
+    ? "aspect-[393/852] max-h-[min(720px,78dvh)] w-full max-w-[360px] rounded-[28px] shadow-[0_24px_80px_rgba(0,0,0,0.55),0_0_0_1px_rgba(255,255,255,0.08)]"
+    : "mx-auto aspect-[393/852] max-h-[min(852px,88dvh)] w-full max-w-[390px] rounded-[32px] shadow-[0_24px_80px_rgba(0,0,0,0.45),0_0_0_1px_rgba(255,255,255,0.06)]";
+
   return (
     <div
       className={
         isEmbed
-          ? "relative mx-auto w-full max-w-[320px] sm:max-w-[340px]"
-          : "flex min-h-dvh items-start justify-center bg-[#1A1A1A] px-3 py-4 sm:py-6"
+          ? "relative mx-auto w-full max-w-[360px]"
+          : "flex min-h-dvh items-center justify-center bg-[#1A1A1A] px-3 py-4 sm:py-6"
       }
     >
       <div
-        className={`relative flex w-full flex-col overflow-hidden bg-[#F8F9FA] ${
-          isEmbed
-            ? "h-[680px] rounded-[28px] shadow-[0_24px_80px_rgba(0,0,0,0.55),0_0_0_1px_rgba(255,255,255,0.08)]"
-            : "max-w-[400px] min-h-[calc(100dvh-2rem)] rounded-[32px] shadow-[0_24px_80px_rgba(0,0,0,0.45),0_0_0_1px_rgba(255,255,255,0.06)]"
-        } ${demoBar ? "pt-12" : ""}`}
+        className={`relative flex flex-col overflow-hidden bg-[#F8F9FA] ${phoneFrameClass} ${demoBar ? "pt-12" : ""}`}
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex justify-center pt-2">
           <span className="h-1 w-28 rounded-full bg-black/10" aria-hidden />
