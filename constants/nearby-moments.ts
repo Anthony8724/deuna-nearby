@@ -1,0 +1,80 @@
+import type { NearbyMoment } from "@/types/nearby-moment";
+import { demoHero } from "@/constants/demo";
+
+export const nearbyMoments: NearbyMoment[] = [
+  {
+    id: "moment-burger",
+    emoji: "🍔",
+    insight: "Burger Factory está a 250 m.",
+    message: "Beneficio exclusivo usando DeUna.",
+    benefit: "15% beneficio DeUna",
+    merchantName: "Burger Factory",
+    distance: "250 m",
+    merchantId: "burger-factory",
+    accent: "amber",
+    isNew: true,
+    isOpen: true,
+    timeLabel: "Ahora",
+    contextType: "promo",
+    contextLabel: "Promoción relevante cerca de ti",
+    aiInsight: "Promoción relevante cerca de ti",
+    affinityScore: 92,
+    description:
+      "Hamburguesas artesanales con ingredientes locales. Pago rápido con QR DeUna.",
+    hours: "Mar – Dom · 11:30 – 23:00",
+    imageUrl:
+      "https://images.unsplash.com/photo-1568901347635-c023013d7143?w=800&auto=format&fit=crop&q=80",
+    paymentAmount: 14.5,
+    benefitPercent: 15,
+  },
+  {
+    id: "moment-cafe",
+    emoji: "☕",
+    insight: "Tu café favorito está cerca.",
+    message: "10% cashback disponible hasta las 10AM.",
+    benefit: "10% cashback",
+    expiresLabel: "hasta las 10AM",
+    merchantName: "Café Central",
+    distance: "120 m",
+    merchantId: demoHero.merchantId,
+    accent: "violet",
+    isNew: true,
+    isOpen: true,
+    timeLabel: "9:42",
+    contextType: "frequency",
+    contextLabel: "Basado en tus hábitos",
+    aiInsight: demoHero.aiInsight,
+    affinityScore: 89,
+    description:
+      "Café de especialidad en La Mariscal. Ideal para tu rutina matutina con DeUna Nearby.",
+    hours: "Lun – Dom · 7:00 – 22:00",
+    imageUrl:
+      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&auto=format&fit=crop&q=80",
+    paymentAmount: demoHero.paymentAmount,
+    benefitPercent: demoHero.benefitPercent,
+  },
+  {
+    id: "moment-market",
+    emoji: "🛒",
+    insight: "Mini Market Express está cerca.",
+    message: "2x puntos en compras de hoy.",
+    benefit: "2x puntos hoy",
+    merchantName: "Mini Market Express",
+    distance: "300 m",
+    merchantId: "mini-market-express",
+    accent: "emerald",
+    isOpen: true,
+    contextType: "habits",
+    contextLabel: "Recomendado para ti",
+    aiInsight: "Compras frecuentes los fines de semana",
+    affinityScore: 85,
+    description: "Market express con productos esenciales cerca de ti.",
+    hours: "Lun – Dom · 7:00 – 22:00",
+    imageUrl:
+      "https://images.unsplash.com/photo-1578916171728-46686e6858f4?w=800&auto=format&fit=crop&q=80",
+    paymentAmount: 12,
+    benefitPercent: 10,
+  },
+];
+
+export const primaryNearbyMoment = nearbyMoments[1];
