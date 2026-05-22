@@ -2,11 +2,11 @@
 
 import { useCallback } from "react";
 import { NearbyBottomSheet } from "@/components/nearby/nearby-bottom-sheet";
-import { DemoBootstrap, DemoPresenterBar } from "@/components/demo/demo-bootstrap";
 import { demoFollowUp, demoTimings, isDemoMode } from "@/constants/demo";
 import { primaryNearbyMoment } from "@/constants/nearby-moments";
 import { notificationGenerator } from "@/lib/notification-generator";
 import { smartRecommendationToMoment } from "@/lib/smart-recommendation-mapper";
+import { fetchLiveRecommendations } from "@/lib/live-nearby-api";
 import { recommendationService } from "@/lib/recommendation-service";
 import {
   NearbyProvider,
@@ -35,18 +35,23 @@ function NearbySheetLayer() {
 
     if (isDemoMode()) {
       window.setTimeout(() => {
-        const location = recommendationService.getFallbackLocation();
-        const recs = recommendationService.getRecommendations(
-          location,
-          recommendationService.getDefaultHistory(),
-          [demoFollowUp.merchantName],
-        );
-        const followUp =
-          recs.find((r) => r.id === demoFollowUp.recommendationId) ?? recs[0];
-        if (!followUp) return;
-        const followMoment = smartRecommendationToMoment(followUp);
-        notificationGenerator.enqueueFromMoment(followMoment);
-        refreshPushQueue();
+        void fetchLiveRecommendations().then(({ recommendations }) => {
+          const location = recommendationService.getFallbackLocation();
+          const recs =
+            recommendations.length > 0
+              ? recommendations
+              : recommendationService.getRecommendations(
+                  location,
+                  recommendationService.getDefaultHistory(),
+                  [demoFollowUp.merchantName],
+                );
+          const followUp =
+            recs.find((r) => r.id === demoFollowUp.recommendationId) ?? recs[0];
+          if (!followUp) return;
+          const followMoment = smartRecommendationToMoment(followUp);
+          notificationGenerator.enqueueFromMoment(followMoment);
+          refreshPushQueue();
+        });
       }, demoTimings.postPaymentNotificationMs);
     }
   }, [activeMoment, dismissMoment, refreshPushQueue]);
@@ -64,8 +69,6 @@ function NearbySheetLayer() {
 export function DeunaShell({ children }: { children: React.ReactNode }) {
   return (
     <NearbyProvider>
-      <DemoBootstrap />
-      <DemoPresenterBar />
       {children}
       <NearbySheetLayer />
     </NearbyProvider>

@@ -26,6 +26,12 @@ export function UserBenefitsSection() {
               negocio="Tutto Café Lab"
               beneficio="Cashback 4%"
             />
+            <a
+              href="#billetera-demo"
+              className="mt-4 block text-center text-sm font-semibold text-[#a5a0ff] hover:text-white"
+            >
+              Probar la app interactiva ↑
+            </a>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 16 }}

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 import { premium } from "@/app/_components/ui/premium";
+import { LOCK_SCREEN_ROUTE } from "@/lib/demo-routes";
 import { SectionEyebrow } from "@/app/_components/ui/SectionEyebrow";
 import { FLAGSHIP_RECOMENDACION } from "@/app/data/platformSnapshot";
 import {
@@ -30,7 +31,7 @@ export function NearbyMomentsSection() {
               promoción y copy generado en tiempo real.
             </p>
             <Link
-              href="/smart-notifications"
+              href={LOCK_SCREEN_ROUTE}
               className="mt-8 inline-flex text-sm font-semibold text-[#a5a0ff] transition hover:text-white"
             >
               Ver experiencia in-app →

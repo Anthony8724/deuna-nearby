@@ -1,6 +1,7 @@
 "use client";
 
 import { memo } from "react";
+import { WALLET_ROUTE } from "@/lib/demo-routes";
 import { motion } from "framer-motion";
 import { BarChart3, Home, LayoutGrid, QrCode } from "lucide-react";
 import Link from "next/link";
@@ -44,7 +45,7 @@ function MerchantMobileNavInner() {
         })}
 
         <Link
-          href="/"
+          href={WALLET_ROUTE}
           prefetch={routerReady}
           className="relative flex flex-1 flex-col items-center justify-center gap-0.5 text-[#9CA3AF]"
         >

@@ -5,10 +5,12 @@ import { Bell, Headphones } from "lucide-react";
 import { useNearbyActions, useNearbyState } from "@/context/nearby-context";
 import { homeUser } from "@/constants/home";
 import { nativeHover, nativeSpring, nativeTap } from "@/lib/home-motion";
+import { useWalletDemo } from "./wallet-demo-provider";
 
 export function WalletHeader() {
   const { unreadCount, carouselMoments } = useNearbyState();
   const { openTopNotification } = useNearbyActions();
+  const { showFeedback } = useWalletDemo();
   const hasNotifications = unreadCount > 0 || carouselMoments.length > 0;
 
   return (
@@ -53,6 +55,7 @@ export function WalletHeader() {
           type="button"
           whileHover={nativeHover}
           whileTap={nativeTap}
+          onClick={() => showFeedback("Conectando con soporte DeUna…")}
           className="flex h-10 w-10 items-center justify-center rounded-full text-[#6B7280]"
           aria-label="Soporte"
         >

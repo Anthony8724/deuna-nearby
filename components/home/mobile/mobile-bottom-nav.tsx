@@ -1,21 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Home, Tag, Wallet, User } from "lucide-react";
 import { useClientReady } from "@/hooks/use-client-ready";
+import { useNearbyActions } from "@/context/nearby-context";
 import { nativeTap } from "@/lib/home-motion";
+import { LOCK_SCREEN_ROUTE, WALLET_ROUTE } from "@/lib/demo-routes";
 
 const items = [
-  { id: "home", label: "Inicio", href: "/", icon: Home },
-  { id: "promos", label: "Promos", href: "/", icon: Tag },
-  { id: "wallet", label: "Billetera", href: "/", icon: Wallet },
+  { id: "home", label: "Inicio", href: LOCK_SCREEN_ROUTE, icon: Home },
+  { id: "wallet", label: "Billetera", href: WALLET_ROUTE, icon: Wallet },
   { id: "profile", label: "Tú", href: "/comercio/dashboard", icon: User },
-];
+] as const;
 
 function MobileBottomNavInner({ active = "home" }: { active?: string }) {
   const routerReady = useClientReady();
+  const { openTopNotification } = useNearbyActions();
+
+  const handlePromos = useCallback(() => {
+    document.getElementById("wallet-promos")?.scrollIntoView({ behavior: "smooth" });
+    openTopNotification();
+  }, [openTopNotification]);
 
   return (
     <nav
@@ -42,6 +49,16 @@ function MobileBottomNavInner({ active = "home" }: { active?: string }) {
             </Link>
           );
         })}
+
+        <motion.button
+          type="button"
+          whileTap={nativeTap}
+          onClick={handlePromos}
+          className="relative flex flex-1 flex-col items-center justify-center gap-1 text-[#9CA3AF] transition-colors hover:text-[#5D21D0]"
+        >
+          <Tag className="h-5 w-5" strokeWidth={1.75} />
+          <span className="text-[10px] font-semibold">Promos</span>
+        </motion.button>
       </div>
     </nav>
   );

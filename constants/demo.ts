@@ -3,6 +3,15 @@
  * Set NEXT_PUBLIC_DEMO_MODE=false to disable demo optimizations in production builds.
  */
 
+export {
+  DEMO_STEP_KEY,
+  demoFlowSteps,
+  demoFlowSteps as demoPresenterSteps,
+  readDemoStep,
+  writeDemoStep,
+  demoStepForPath,
+} from "@/lib/demo-flow";
+
 export const DEMO_SESSION_KEY = "deuna-nearby-session";
 export const DEMO_PUSH_KEY = "deuna-smart-push-queue";
 export const DEMO_BOOTSTRAP_KEY = "deuna-demo-bootstrapped";
@@ -47,11 +56,3 @@ export const demoFollowUp = {
   benefit: "10% cashback",
   aiInsight: "Basado en tus compras matutinas",
 } as const;
-
-export const demoPresenterSteps = [
-  "Espera la notificación Nearby",
-  "Toca la notificación → Bottom Sheet",
-  "Pagar con DeUna",
-  "Ver panel comercio en vivo",
-  "Abrir dashboard de impacto",
-] as const;

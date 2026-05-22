@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { premium } from "@/app/_components/ui/premium";
+import { LOCK_SCREEN_ROUTE } from "@/lib/demo-routes";
 
 export function FinalCtaSection() {
   return (
@@ -31,12 +32,12 @@ export function FinalCtaSection() {
             Radar DeUna hoy.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link href="/smart-notifications" className={premium.btnPrimary}>
-              Abrir experiencia in-app
+            <Link href={LOCK_SCREEN_ROUTE} className={premium.btnPrimary}>
+              Continuar demo (Radar DeUna)
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link href="/dashboard" className={premium.btnSecondary}>
-              Soy comercio afiliado
+              Dashboard impacto + pitch
             </Link>
           </div>
           <p className={`mt-10 ${premium.body}`}>

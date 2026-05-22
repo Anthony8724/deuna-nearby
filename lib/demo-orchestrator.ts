@@ -6,6 +6,10 @@ import {
   isDemoMode,
 } from "@/constants/demo";
 import { homeUser } from "@/constants/home";
+import {
+  mapApiRecommendationToSmart,
+  mapSmartToNearbyMoment,
+} from "@/lib/api-recommendation-mapper";
 import { notificationGenerator } from "@/lib/notification-generator";
 import { nearbyMoments } from "@/constants/nearby-moments";
 
@@ -18,6 +22,27 @@ export function resetDemoState(options?: { force?: boolean }) {
   sessionStorage.removeItem(DEMO_BOOTSTRAP_KEY);
 }
 
+async function resolveHeroMoment() {
+  try {
+    const res = await fetch("/api/recommendations", { cache: "no-store" });
+    if (res.ok) {
+      const payload = await res.json();
+      const top = payload.recommendations?.[0];
+      if (top) {
+        return mapSmartToNearbyMoment(
+          mapApiRecommendationToSmart(top, payload.favoriteCategory),
+        );
+      }
+    }
+  } catch {
+    /* fallback below */
+  }
+
+  return (
+    nearbyMoments.find((m) => m.id === demoHero.momentId) ?? nearbyMoments[0]
+  );
+}
+
 export function ensureDemoBootstrap() {
   if (typeof window === "undefined" || !isDemoMode()) return false;
 
@@ -26,9 +51,9 @@ export function ensureDemoBootstrap() {
 
   resetDemoState({ force: true });
 
-  const heroMoment =
-    nearbyMoments.find((m) => m.id === demoHero.momentId) ?? nearbyMoments[0];
-  notificationGenerator.enqueueFromMoment(heroMoment);
+  void resolveHeroMoment().then((heroMoment) => {
+    notificationGenerator.enqueueFromMoment(heroMoment);
+  });
 
   sessionStorage.setItem(DEMO_BOOTSTRAP_KEY, String(Date.now()));
   return true;

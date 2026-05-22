@@ -48,24 +48,34 @@ export type DeUnaHomeScreenProps = {
   onRequestGps?: () => void;
   onTransferir?: () => void;
   onPagarQr?: () => void;
+  onRecharge?: () => void;
+  onQuickAction?: (actionId: string) => void;
 };
 
 function QuickActionTile({
+  actionId,
   label,
   emoji,
+  onPress,
 }: {
+  actionId: string;
   label: string;
   emoji: string;
+  onPress?: (id: string) => void;
 }) {
   return (
-    <div className="flex min-w-0 flex-1 flex-col items-center gap-1.5">
+    <button
+      type="button"
+      onClick={() => onPress?.(actionId)}
+      className="flex min-w-0 flex-1 flex-col items-center gap-1.5"
+    >
       <div className="flex h-[52px] w-[52px] items-center justify-center rounded-2xl bg-[#F5F5F7] text-2xl">
         {emoji}
       </div>
       <span className={`text-center text-[10px] font-medium leading-tight ${deuna.textPrimary}`}>
         {label}
       </span>
-    </div>
+    </button>
   );
 }
 
@@ -85,6 +95,8 @@ export function DeUnaHomeScreen({
   onRequestGps,
   onTransferir,
   onPagarQr,
+  onRecharge,
+  onQuickAction,
 }: DeUnaHomeScreenProps) {
   const [saldoVisible, setSaldoVisible] = useState(true);
 
@@ -151,6 +163,7 @@ export function DeUnaHomeScreen({
           </p>
           <button
             type="button"
+            onClick={onRecharge}
             className="shrink-0 rounded-full bg-white px-3 py-1 text-[11px] font-bold text-[#171717] shadow-sm"
           >
             + $20
@@ -165,13 +178,24 @@ export function DeUnaHomeScreen({
       <div className="mt-5">
         <div className="flex justify-between gap-1">
           {QUICK_ACTIONS_ROW_1.map((a) => (
-            <QuickActionTile key={a.id} label={a.label} emoji={a.emoji} />
+            <QuickActionTile
+              key={a.id}
+              actionId={a.id}
+              label={a.label}
+              emoji={a.emoji}
+              onPress={onQuickAction}
+            />
           ))}
         </div>
         <div className="mt-4 flex justify-start gap-1">
           {QUICK_ACTIONS_ROW_2.map((a) => (
             <div key={a.id} className="w-1/4 min-w-0 max-w-[25%]">
-              <QuickActionTile label={a.label} emoji={a.emoji} />
+              <QuickActionTile
+                actionId={a.id}
+                label={a.label}
+                emoji={a.emoji}
+                onPress={onQuickAction}
+              />
             </div>
           ))}
         </div>

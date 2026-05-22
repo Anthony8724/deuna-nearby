@@ -5,16 +5,16 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 import { SectionEyebrow } from "@/app/_components/ui/SectionEyebrow";
+import { LOCK_SCREEN_ROUTE } from "@/lib/demo-routes";
 import { premium } from "@/app/_components/ui/premium";
 import {
   PLATFORM,
   FLAGSHIP_MERCHANT_KPIS,
-  FLAGSHIP_PUSH_PREVIEW,
 } from "@/app/data/platformSnapshot";
 
 import { LANDING_METRICS } from "./data";
 import { InvestorHighlightsStrip } from "./InvestorHighlightsStrip";
-import { PhoneMockup } from "./PhoneMockup";
+import { LandingWalletEmbed } from "./LandingWalletEmbed";
 
 const stagger = {
   show: { transition: { staggerChildren: 0.08 } },
@@ -54,12 +54,12 @@ export function HeroSection() {
             variants={fadeUp}
             className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start"
           >
-            <Link href="/smart-notifications" className={premium.btnPrimary}>
-              Abrir DeUna · Cerca
+            <Link href={LOCK_SCREEN_ROUTE} className={premium.btnPrimary}>
+              Iniciar demo completa
               <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href="/dashboard" className={premium.btnSecondary}>
-              Dashboard comercios
+            <Link href="#billetera-demo" className={premium.btnSecondary}>
+              Probar app móvil
             </Link>
           </motion.div>
           <motion.div
@@ -84,7 +84,7 @@ export function HeroSection() {
           <InvestorHighlightsStrip />
         </motion.div>
         <div className="relative flex justify-center lg:justify-end">
-          <PhoneMockup delay={0.15} {...FLAGSHIP_PUSH_PREVIEW} />
+          <LandingWalletEmbed delay={0.15} />
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}

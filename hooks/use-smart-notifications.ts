@@ -6,8 +6,9 @@ import type {
   SmartPushNotification,
   SmartRecommendation,
 } from "@/types/smart-recommendation";
-import { recommendationService } from "@/lib/recommendation-service";
+import { fetchLiveRecommendations } from "@/lib/live-nearby-api";
 import { notificationGenerator } from "@/lib/notification-generator";
+import { recommendationService } from "@/lib/recommendation-service";
 import { useUserLocation } from "./use-user-location";
 
 type UseSmartNotificationsOptions = {
@@ -21,6 +22,7 @@ type UseSmartNotificationsResult = {
   pushQueue: SmartPushNotification[];
   isLoading: boolean;
   locationReady: boolean;
+  liveData: boolean;
   refresh: () => void;
 };
 
@@ -33,13 +35,31 @@ export function useSmartNotifications(
     useUserLocation();
   const [pushQueue, setPushQueue] = useState<SmartPushNotification[]>([]);
   const [generationTick, setGenerationTick] = useState(0);
+  const [liveRecommendations, setLiveRecommendations] = useState<
+    SmartRecommendation[]
+  >([]);
+  const [liveData, setLiveData] = useState(false);
 
   const history = useMemo(
     () => recommendationService.getDefaultHistory(),
     [],
   );
 
-  const recommendations = useMemo(() => {
+  useEffect(() => {
+    let cancelled = false;
+
+    void fetchLiveRecommendations().then(({ recommendations, live }) => {
+      if (cancelled) return;
+      setLiveRecommendations(recommendations);
+      setLiveData(live);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [generationTick]);
+
+  const mockRecommendations = useMemo(() => {
     if (!location) return [];
     return recommendationService.getRecommendations(
       location,
@@ -47,6 +67,15 @@ export function useSmartNotifications(
       excludeMerchantNames,
     );
   }, [location, history, excludeMerchantNames, generationTick]);
+
+  const recommendations = useMemo(() => {
+    const source = liveRecommendations.length > 0 ? liveRecommendations : mockRecommendations;
+    if (excludeMerchantNames.length === 0) return source;
+    const excluded = new Set(excludeMerchantNames.map((n) => n.toLowerCase()));
+    return source.filter(
+      (rec) => !excluded.has(rec.merchantName.toLowerCase()),
+    );
+  }, [liveRecommendations, mockRecommendations, excludeMerchantNames]);
 
   useEffect(() => {
     if (!enableBackgroundPush || recommendations.length === 0) return;
@@ -70,6 +99,7 @@ export function useSmartNotifications(
     pushQueue,
     isLoading: locationLoading,
     locationReady: Boolean(location),
+    liveData,
     refresh: () => {
       refreshLocation();
       setGenerationTick((t) => t + 1);

@@ -1,4 +1,6 @@
+export { DeunaWalletApp } from "./deuna-wallet-app";
 export { DeunaHome } from "./deuna-home";
+export { DeunaWalletScreen } from "./deuna-wallet-screen";
 export { HomeHeader } from "./home-header";
 export { BalanceCard } from "./balance-card";
 export { QuickActions } from "./quick-actions";

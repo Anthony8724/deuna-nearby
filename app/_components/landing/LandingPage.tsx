@@ -14,6 +14,8 @@ import { LandingBackground } from "./LandingBackground";
 
 import { LandingNav } from "./LandingNav";
 
+import { LandingPitchSection } from "./LandingPitchSection";
+
 import { MerchantBenefitsSection } from "./MerchantBenefitsSection";
 
 import { NearbyMomentsSection } from "./NearbyMomentsSection";
@@ -45,6 +47,8 @@ export function LandingPage() {
         <MerchantBenefitsSection />
 
         <DashboardPreviewSection />
+
+        <LandingPitchSection />
 
         <FinalCtaSection />
 

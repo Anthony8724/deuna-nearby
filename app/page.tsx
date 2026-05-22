@@ -1,10 +1,5 @@
-import { DeunaHome } from "@/components/home";
-import { DeunaShell } from "@/components/layout/deuna-shell";
+import { LockedDeviceExperience } from "@/app/smart-notifications/LockedDeviceExperience";
 
 export default function Home() {
-  return (
-    <DeunaShell>
-      <DeunaHome />
-    </DeunaShell>
-  );
+  return <LockedDeviceExperience />;
 }

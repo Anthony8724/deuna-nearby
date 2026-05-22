@@ -6,9 +6,11 @@ import { ChevronRight, Eye, EyeOff } from "lucide-react";
 import { useDeunaSession } from "@/context/deuna-session-context";
 import { nativeHover, nativeSpring, nativeTap } from "@/lib/home-motion";
 import { AnimatedBalance } from "../animated-balance";
+import { useWalletDemo } from "./wallet-demo-provider";
 
 export function BalanceCard() {
   const { balance } = useDeunaSession();
+  const { recharge } = useWalletDemo();
   const [visible, setVisible] = useState(true);
 
   return (
@@ -51,6 +53,7 @@ export function BalanceCard() {
           type="button"
           whileHover={nativeHover}
           whileTap={nativeTap}
+          onClick={() => recharge(20)}
           className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-[#5D21D0] px-4 py-2 text-sm font-bold text-white shadow-[0_4px_14px_rgba(93,33,208,0.35)]"
         >
           + $20

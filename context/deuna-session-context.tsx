@@ -38,6 +38,8 @@ type DeunaSessionValue = {
   processPayment: (moment: NearbyMoment) => Promise<CompletedPayment>;
   resetPaymentPhase: () => void;
   clearRecentPayment: () => void;
+  rechargeBalance: (amount: number) => void;
+  transferFunds: (amount: number, recipient: string) => void;
   getLiveDashboard: (base: MerchantDashboardData) => MerchantDashboardData;
 };
 
@@ -138,6 +140,28 @@ export function DeunaSessionProvider({
     setRecentPaymentId(null);
   }, []);
 
+  const rechargeBalance = useCallback((amount: number) => {
+    setSnapshot((prev) => {
+      const next: SessionSnapshot = {
+        ...prev,
+        balance: Math.round((prev.balance + amount) * 100) / 100,
+      };
+      persistSnapshot(next);
+      return next;
+    });
+  }, []);
+
+  const transferFunds = useCallback((amount: number, _recipient: string) => {
+    setSnapshot((prev) => {
+      const next: SessionSnapshot = {
+        ...prev,
+        balance: Math.max(0, Math.round((prev.balance - amount) * 100) / 100),
+      };
+      persistSnapshot(next);
+      return next;
+    });
+  }, []);
+
   const getLiveDashboard = useCallback(
     (base: MerchantDashboardData) =>
       mergeDashboardWithPayment(base, snapshot.completedPayments),
@@ -155,6 +179,8 @@ export function DeunaSessionProvider({
       processPayment,
       resetPaymentPhase,
       clearRecentPayment,
+      rechargeBalance,
+      transferFunds,
       getLiveDashboard,
     }),
     [
@@ -167,6 +193,8 @@ export function DeunaSessionProvider({
       processPayment,
       resetPaymentPhase,
       clearRecentPayment,
+      rechargeBalance,
+      transferFunds,
       getLiveDashboard,
     ],
   );

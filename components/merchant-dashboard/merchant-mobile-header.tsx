@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ChevronDown } from "lucide-react";
 import { useMerchantDashboard } from "@/context/merchant-dashboard-context";
 import type { DashboardPeriod } from "@/types/merchant-dashboard";
+import { WALLET_ROUTE } from "@/lib/demo-routes";
 import { nativeHover, nativeTap } from "@/lib/home-motion";
 
 const periodOptions: { value: DashboardPeriod; label: string }[] = [
@@ -20,7 +21,7 @@ export function MerchantMobileHeader() {
     <header className="sticky top-0 z-10 border-b border-black/[0.05] bg-white/95 px-5 pb-4 pt-6 backdrop-blur-sm">
       <div className="mb-4 flex items-center justify-between">
         <Link
-          href="/"
+          href={WALLET_ROUTE}
           className="inline-flex items-center gap-1 text-sm font-semibold text-[#5D21D0]"
         >
           <ArrowLeft className="h-4 w-4" strokeWidth={2.5} />

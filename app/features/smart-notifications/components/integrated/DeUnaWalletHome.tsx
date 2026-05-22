@@ -16,11 +16,12 @@ export type DeUnaWalletHomeProps = {
   onCercaCardPress?: (card: CercaDeTiCardModel) => void;
   onBusinessPress?: (business: NearbyBusiness) => void;
   onRequestGps?: () => void;
+  onTransferir?: () => void;
+  onPagarQr?: () => void;
+  onRecharge?: () => void;
+  onQuickAction?: (actionId: string) => void;
 };
 
-/**
- * Home / billetera DeUna — delega en DeUnaHomeScreen (diseño app principal).
- */
 export function DeUnaWalletHome({
   userName,
   smartRecommendations = [],
@@ -31,6 +32,10 @@ export function DeUnaWalletHome({
   onCercaCardPress,
   onBusinessPress,
   onRequestGps,
+  onTransferir,
+  onPagarQr,
+  onRecharge,
+  onQuickAction,
 }: DeUnaWalletHomeProps) {
   return (
     <DeUnaHomeScreen
@@ -43,6 +48,10 @@ export function DeUnaWalletHome({
       onCercaCardPress={onCercaCardPress}
       onBusinessPress={onBusinessPress}
       onRequestGps={onRequestGps}
+      onTransferir={onTransferir}
+      onPagarQr={onPagarQr}
+      onRecharge={onRecharge}
+      onQuickAction={onQuickAction}
     />
   );
 }

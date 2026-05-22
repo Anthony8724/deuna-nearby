@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { WALLET_ROUTE } from "@/lib/demo-routes";
 
 const EXPANDED_WIDTH = 260;
 
@@ -214,7 +215,7 @@ function SidebarContent({
 
       <div className="border-t border-white/6 p-4">
         <Link
-          href="/"
+          href={WALLET_ROUTE}
           onClick={onNavigate}
           className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-muted transition-colors hover:bg-white/5 hover:text-foreground"
         >

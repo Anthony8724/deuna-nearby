@@ -5,12 +5,15 @@ import { Radar } from "lucide-react";
 import Link from "next/link";
 
 import { premium } from "@/app/_components/ui/premium";
+import { LANDING_ROUTE, LOCK_SCREEN_ROUTE } from "@/lib/demo-routes";
 
 const LINKS = [
   { href: "#como-funciona", label: "Producto" },
+  { href: "#billetera-demo", label: "App móvil" },
   { href: "#nearby-moments", label: "Moments" },
   { href: "#comercios", label: "Comercios" },
-  { href: "#dashboard", label: "Analytics" },
+  { href: "#dashboard", label: "Impacto" },
+  { href: "#impacto-pitch", label: "Pitch" },
 ] as const;
 
 export function LandingNav() {
@@ -22,7 +25,7 @@ export function LandingNav() {
       className={premium.nav}
     >
       <div className="mx-auto flex h-[4.25rem] max-w-7xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="flex items-center gap-2.5">
+        <Link href={LOCK_SCREEN_ROUTE} className="flex items-center gap-2.5">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white">
             <Radar className="h-4 w-4 text-black" strokeWidth={2.25} />
           </div>
@@ -46,9 +49,9 @@ export function LandingNav() {
             href="/dashboard"
             className="hidden text-[13px] font-medium text-white/55 transition hover:text-white sm:inline"
           >
-            Comercios
+            Impacto
           </Link>
-          <Link href="/smart-notifications" className={premium.btnPrimary}>
+          <Link href={LOCK_SCREEN_ROUTE} className={premium.btnPrimary}>
             Ver demo
           </Link>
         </div>
